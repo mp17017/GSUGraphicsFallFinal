@@ -1,0 +1,4 @@
+Changelog:
+Can now launch game by pressing "New Game"
+Modified settings window so it appears inside the same window as the launcher.
+Picking in new window is non-functional.
