@@ -1,4 +1,4 @@
-package FinalProject;
+package Project;
 
 import com.sun.j3d.loaders.Scene;
 import com.sun.j3d.loaders.objectfile.ObjectFile;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 //Marc Newman, for Graphics
-public class finalProjectTestv2 extends Applet {
+public class GameWindow extends Applet {
 
     private CML Listener;
     private int DELAY = 10;
@@ -51,11 +51,11 @@ public class finalProjectTestv2 extends Applet {
 
     public static void main(String[] args) {
         System.setProperty("sun.awt.noerasebackground", "true");
-        new MainFrame(new finalProjectTestv2(), 800, 600);
+        new MainFrame(new GameWindow(), 800, 600);
     }
 
     //@Override
-    public finalProjectTestv2() {
+    public GameWindow() {
         initializeVariables();
         if (dialogTree.isEmpty()) System.exit(0);
         //initialize universe
@@ -72,6 +72,8 @@ public class finalProjectTestv2 extends Applet {
                 G2D.fill3DRect(0, 0, 100, this.getHeight()-100, true);
                 G2D.fill3DRect(100, this.getHeight()-200, this.getWidth(), 200, true);
                 G2D.fill3DRect(0, this.getHeight()-100, 100, 100, true);
+                G2D.setColor(Color.BLACK);
+                G2D.fill3DRect(101, this.getHeight()-199, this.getWidth()-100, 198, false);
                 G2D.setColor(Color.BLACK);
                 G2D.drawString("FPS: ", 100, 100);
                 G2D.drawString("X: "+ viewPosition[0].getX(), 5, 80);
@@ -238,7 +240,7 @@ public class finalProjectTestv2 extends Applet {
         decisionTreeButtonTitles.put(27, "Start car");
         decisionTreeButtonTitles.put(28, "Leave without investigating further");
         decisionTreeButtonTitles.put(29, "Quit Game");
-        
+
         //Decision Tree Index map
         for (int i = 0; i < 1; i++) { //Dummy loop to release temporary variables
             ArrayList<Integer> temp = new ArrayList<Integer>();
@@ -248,147 +250,147 @@ public class finalProjectTestv2 extends Applet {
             temp.set(0, 1);//Search Containers
             temp.set(1, 18);//Search Offices
             decisionTreeIndex.put(0, temp);
-            
+
             //Node 1: Search Containers
             temp.set(0, 2);//Fire gun (death 1)
             temp.set(1, 3);//Solve puzzle (weapon get)
             decisionTreeIndex.put(1, temp);
-            
+
             //Node 2: Player Death 1
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(2, temp);
-            
+
             //Node 3: Solve puzzle (weapon get)
             temp.set(0, 4);//Search body (lore get)
             temp.set(1, 5);//Ignore body (no change)
             decisionTreeIndex.put(3, temp);
-            
+
             //Node 4: Search body (lore get)
             temp.set(0, 6);//Search cars
             temp.set(1, 9);//Investigate Scream
             decisionTreeIndex.put(4, temp);
-            
+
             //Node 5: Ignore body (no change)
             temp.set(0, 6);//Search cars
             temp.set(1, 9);//Investigate scream
             decisionTreeIndex.put(5, temp);
-            
+
             //Node 6: Search Cars
             temp.set(0, 7);//Break window (death 3)
             temp.set(1, 8);//Hide (merge with Node 24)
             decisionTreeIndex.put(6, temp);
-            
+
             //Node 7: Break window (death 3)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(7, temp);
-            
+
             //Node 8: Hide (merge with Node 24)
             temp.set(0, 26);//Trap in container (Ending 2: Hunter)
             temp.set(1, 27);//Hide in container (death 6)
             decisionTreeIndex.put(8, temp);
-            
+
             //Node 9: Investigate scream
             temp.set(0, 10);//Open the door quietly
             temp.set(1, 17);//Knock on the door (death 4)
             decisionTreeIndex.put(9, temp);
-            
+
             //Node 10: Open the door quietly
             temp.set(0, 11);//Bring child with you (partner get)
             temp.set(1, 14);//Lock child inside container (for safety)
             decisionTreeIndex.put(10, temp);
-            
+
             //Node 11: Bring them with you (partner get)
             temp.set(0, 12);//Escape (Ending 3)
             temp.set(1, 13);//Hunt monster (death 8)
             decisionTreeIndex.put(11, temp);
-            
+
             //Node 12: Escape (Ending 3: Job Done)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(12, temp);
-            
+
             //Node 13: Hunt monster (death 8)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(13, temp);
-            
+
             //Node 14: Lock child inside container (for safety)
             temp.set(0, 15);//Trap monster in container (Ending 4: Cruel Work)
             temp.set(1, 16);//Run for it (death 7)
             decisionTreeIndex.put(14, temp);
-            
+
             //Node 15: Trap monster in container (Ending 4: Cruel Work)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(15, temp);
-            
+
             //Node 16: Run for it (death 7)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(16, temp);
-            
+
             //Node 17: Knock on the door (death 4)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(17, temp);
-            
+
             //Node 18: Search offices
             temp.set(0, 19);//Opens drawers (key get)
             temp.set(1, 20);//Ignore drawers (no change)
             decisionTreeIndex.put(18, temp);
-            
+
             //Node 19: Search offices
             temp.set(0, 21);//Confront entity (death 2)
             temp.set(1, 22);//Hide (no change)
             decisionTreeIndex.put(19, temp);
-            
+
             //Node 20: Ignore drawers (no change)
             temp.set(0, 21);//Confront entity (death 2)
             temp.set(1, 22);//Hide (no change)
             decisionTreeIndex.put(20, temp);
-            
+
             //Node 21: Confront entity (death 2)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(21, temp);
-            
+
             //Node 22: Hide (no change)
             temp.set(0, 23);//Search cars
             temp.set(1, 28);//Leave (Ending 1: Coward)
             decisionTreeIndex.put(22, temp);
-            
+
             //Node 23: Search cars
             temp.set(0, 24);//Hide
             temp.set(1, 27);//Start the car (death 5)
             decisionTreeIndex.put(23, temp);
-            
+
             //Node 24: Hide
             temp.set(0, 25);//Trap in container (Ending 2: Hunter)
             temp.set(1, 26);//Hide in container (death 6)
             decisionTreeIndex.put(24, temp);
-            
+
             //Node 25: Trap in container (Ending 2: Hunter)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(25, temp);
-            
+
             //Node 26: Hide in container (death 6)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(26, temp);
-            
+
             //Node 27: Start the car (death 5)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(27, temp);
-            
+
             //Node 28: Leave (Ending 1: Coward)
             temp.set(0, 0);//Restart prompt YES
             temp.set(1, 29);//Restart prompt NO
             decisionTreeIndex.put(28, temp);
-            
+
         }
         //Movement tree map
         /*for (int i = 0; i < 1; i++) {
@@ -397,12 +399,12 @@ public class finalProjectTestv2 extends Applet {
             temp.set(0, cameraPosition);
             temp.set(1, eyePosition);
             movementTree.add(temp);
-            
+
             //Node :
             temp.set(0, );
             temp.set(1, );
             movementTree.add(temp);
-            
+
         }
         */
         //File input for dialog
@@ -412,13 +414,13 @@ public class finalProjectTestv2 extends Applet {
             //fetch dialog for each event
             BufferedReader inputStream = null;
             try {
-               inputStream = new BufferedReader(new FileReader("dialogDecision" +i +".txt"));
-               String line;
-               while ((line = inputStream.readLine()) != null) {
-                   temp.add(line);
-               }
-               dialogTree.add(temp);
-               temp.clear();
+                inputStream = new BufferedReader(new FileReader("dialogDecision" +i +".txt"));
+                String line;
+                while ((line = inputStream.readLine()) != null) {
+                    temp.add(line);
+                }
+                dialogTree.add(temp);
+                temp.clear();
             }catch (IOException e) {
                 System.out.println("File not found: " +e);
             }finally {

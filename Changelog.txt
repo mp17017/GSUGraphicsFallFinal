@@ -2,3 +2,10 @@ Changelog:
 Can now launch game by pressing "New Game"
 Modified settings window so it appears inside the same window as the launcher.
 Picking in new window is non-functional.
+
+12/1/2020
+Renamed the main game java to "maingame.java".
+Added a HUD to "maingame.java".
+Added X Y and Z output to HUD.
+Made a grey box to increase HUD visibility.
+

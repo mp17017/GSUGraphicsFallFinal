@@ -1,0 +1,7 @@
+JB: “This container is different from the rest, the lock is stronger,
+and it looks fairly new, it’s not legal, but I should see if the kids
+locked in here.”
+
+JB: “I can shoot it off, or I can try to decrypt it...”
+
+CHOOSE

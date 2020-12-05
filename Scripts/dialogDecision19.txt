@@ -1,0 +1,10 @@
+JB searches the drawers and finds a key 
+JB: “This’ll come in handy”
+
+JB leaves the room and see’s the monster at the window, it hasn’t noticed him.
+
+JB: “what is that thing”
+
+JB reaches for his gun
+
+CHOOSE
