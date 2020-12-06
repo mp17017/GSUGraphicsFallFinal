@@ -9,3 +9,26 @@ Added a HUD to "maingame.java".
 Added X Y and Z output to HUD.
 Made a grey box to increase HUD visibility.
 
+12/6/2020
+Fixed GITHUB pulls
+
+Deleted un-necesarry files
+-WarehouseV2.2.obj
+-WarehouseV2.3.obj
+-WarehouseV2.7.obj
+-WarehouseV2.2.mtl
+-WarehouseV2.3.mtl
+-WarehouseV2.7.mtl
+-Subaru.jpg
+-tire.jpg
+-toyota-camry-2013.gif
+-NUT.obj
+-NUT.mtl
+-Out folder
+
+Fixed error in dialogue call.
+Added item3.png
+Removed 'Speaker' from console.
+Changed 'JB' to 'Johnathan' in all dialogue.
+Adjusted options dialogues to be one line.
+Fed the Kraken. 
