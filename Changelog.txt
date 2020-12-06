@@ -32,3 +32,11 @@ Removed 'Speaker' from console.
 Changed 'JB' to 'Johnathan' in all dialogue.
 Adjusted options dialogues to be one line.
 Fed the Kraken. 
+
+12/6/2020 - 2
+Fixed main menu
+-Settings non functional
+-Credits Functional
+
+Updated Scripts with Marcs story adjustments
+Removed Settings.java

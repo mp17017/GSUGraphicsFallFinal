@@ -1,13 +1,15 @@
-Johnathan gets a crowbar to be used later
+*Crowbar obtained*
 
-Johnathan: “Not what I was looking for, but this could come in handy.”
+John: "Not what I was looking for, but this could come in handy."
 
-Johnathan walks out towards the parking lot, finding a body next to one of the cars
+John walks out into the parking lot.
+A body lays sprawled out on the pavement.
 
-Johnathan: “What!?”
+John: "Please tell me that isn't what I think it is..."
 
-Johnathan kneels down and checks his pulse.
+John kneels down and checks his pulse.
 
-Johnathan: “He’s dead, strangled, this isn’t good. 
+John: "He’s dead, strangled... This isn’t good, I could easily get pinned for this."
+John: "He might still have some clues to give me an idea of what's going on though."
 
 CHOOSE

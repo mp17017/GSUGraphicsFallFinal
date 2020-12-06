@@ -1,16 +1,24 @@
-Narrator: You are Johnathan Brooks, a 32-year-old private eye.
-You have been paid to search for a couples lost son,
-they went missing at the docks a few days ago after they left a cruise.
-The docks are riff with thugs and illegal dealings.
-With the police firmly in the local crime rings pocket,
-they won’t be doing anything about it anytime soon.
+Narrator: You are John Brooks, a 32-year-old private eye.
+You have been paid to search for a couples lost son
+The child went missing at the docks a few days ago after deboarding a cruise.
+The docks are rife with thugs and illegal dealings.
+With the police firmly in the local crime rings pocket...
+You won't be counting on any help from the cops.
 
-Narrator: You grab your trusty revolver, and head out to the docks
-where the child was last seen.
+Your usual informant isn't being any help either.
+It's safe to assume there's mafia involvement in this case.
+You'll have to tread carefully on this job.
+Getting mixed up with the local crime syndicate spells bad news for a simple PE.
 
-Johnathan: “My gut tells me he’s in here… somewhere… it’s late,
-so I shouldn’t find anyone else here.”
+You grab your trusty revolver, and head out to the local smuggling area:
+an officially abandonded warehouse on the docks, often used to keep "unwanted eyes" off illegal goods.
 
-Johnathan: “Now, where to look first?”
+Arriving at the warehouse, you take a look around for any posted watchmen.
+
+John: "My gut tells me he’s in here… somewhere…"
+John: "Nobody would be dumb enough to anger the mafia around here."
+John: "Looks like they didn't bother posting any guards at the entrance."
+
+John: "Now, where to look first?"
 
 CHOOSE

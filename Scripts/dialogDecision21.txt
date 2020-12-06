@@ -1,5 +1,7 @@
-Johnathan fires his gun at the monster, doing nothing to it.
+John fires his gun at the monster, to no effect.
 
-The monster attacks him, killing him.
+The monster screeches at it suddenly leaps onto the wall, then turns and attacks him.
+
+John Died
 
 GAME OVER

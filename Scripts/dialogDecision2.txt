@@ -1,7 +1,10 @@
-Gun shot rebound around the room.
+The gun shot rebounds around the parking lot.
 
-Johnathan: “Louder than I thought it’d be, but it’s open.”
+John: "Louder than I would've liked it to be, but at least it’s open."
 
-Johnathan enters the container quickly followed by the monster.
+John enters the container, and starts to look around, but just does he step through the open door...
+A grotesque creature scitters around the corner behind him and lets out a blood-curdling screech as it charges at him.
+
+John Died
 
 GAME OVER

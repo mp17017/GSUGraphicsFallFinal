@@ -1,5 +1,5 @@
-Johnathan heads into the offices, then into a door on his right
+John heads into the offices, then through a door on his right.
 
-Johnathan: “Nothing here, might be something useful in the desk drawer though.
+John: "Nobody here, I might find some clues if I search the room though."
 
 CHOOSE

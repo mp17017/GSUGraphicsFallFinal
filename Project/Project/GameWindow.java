@@ -165,6 +165,10 @@ public class GameWindow extends Applet {
         su.addBranchGraph(bgView);
 
         BranchGroup bg = createObject("Warehouse");
+
+        AmbientLight aLight = new AmbientLight(true, new Color3f(0.1f, 0.1f, 0.1f));
+
+        bg.addChild(aLight);
         bg.compile();
         su.addBranchGraph(bg);
         initializeVariables(tg);
@@ -930,7 +934,6 @@ public class GameWindow extends Applet {
             System.err.println(e);
             System.exit(1);
         }
-
         tg.addChild(s.getSceneGroup());
 
         objRoot.addChild(tg);
@@ -940,7 +943,7 @@ public class GameWindow extends Applet {
     }
 
     private Light createLight() {
-        DirectionalLight light = new DirectionalLight(true, new Color3f(1.0f, 1.0f, 1.0f),
+        DirectionalLight light = new DirectionalLight(true, new Color3f(0.2f, 0.2f, 0.2f),
                 new Vector3f(-0.3f, 0.2f, -1.0f));
 
         light.setInfluencingBounds(new BoundingSphere(new Point3d(), 10000.0));

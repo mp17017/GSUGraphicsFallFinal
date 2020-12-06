@@ -1,7 +1,12 @@
-Johnathan: “This container is different from the rest, the lock is stronger,
-and it looks fairly new, it’s not legal, but I should see if the kids
-locked in here.”
+John: "This container is different from the rest."
 
-Johnathan: “I can shoot it off, or I can try to decrypt it...”
+The lock is stronger, and it looks fairly new.
+There is a keypad on the lock with numbers inscribed on it.
+
+John: "If I get caught, this will look like I'm some kind of thief."
+John: "I am trespassing already though, stealing, trespassing, it's all the same to the syndicates around here."
+John: "Either way, I should see if they've got the kid locked up in here."
+
+John: "I can shoot it off, or I can try to decrypt it..."
 
 CHOOSE

@@ -1,10 +1,14 @@
-Johnathan leads the child outside a window around the corner behind a
+John leads the child outside the office, to a window around the corner behind a
 nearby container, then opens the window.
 
-Johnathan: “Alright, it’s clear common”
+John looks around for the creature, with it nowhere to be seen.
+John: "It must've found something that caught its interest, lets hope that isn't us."
+John: "Alright, it’s clear come'on."
 
-Johnathan helps the child out the window and follows them out.
+John helps the child out the window and follows them out.
 
 ENDING 3:
-You found the child and escaped without defeating the monster,
-that’s someone else’s problem.
+You found the child and escaped without defeating the monster.
+Capturing that thing is someone else’s problem.
+
+VICTORY

@@ -1,5 +1,5 @@
-Johnathan locks the child in the room
+John locks the child in the room.
 
-Johnathan: “You’re safer in here, I’ll take care of this.
+John: "You’re safer in here, I’ll take care of this."
 
 CHOOSE

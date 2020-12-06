@@ -1,8 +1,11 @@
-Johnathan pulls out his revolver and looks for the monster finding him quickly.
+John pulls out his revolver and begins hunting the monster.
+It doesn't take long to find the creature, as it's still prowling for its next victim.
 
-Johnathan: “Take this!”
+John: "Take this!"
 
-Johnathan fires his revolver at the monster to no affect,
-it casually turns around and lunges at him
+John fires his revolver at the monster to no affect.
+The creature lets out a bone-chilling screech and turns to lunge at him.
+
+John Died
 
 GAME OVER

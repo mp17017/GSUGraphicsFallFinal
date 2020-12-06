@@ -30,13 +30,15 @@ Frame frame;
 Toolkit toolkit = Toolkit.getDefaultToolkit();  
 Dimension screenSize = toolkit.getScreenSize();
 SimpleUniverse universe;
-BranchGroup group = new BranchGroup();
+BranchGroup mainMenu = new BranchGroup();
+BranchGroup settingsMenu = settings();
+BranchGroup creditsMenu = credits();
 
 
 public StartMenu(){
     GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
     Canvas3D canvas = new Canvas3D(config);
-    group.setCapability(BranchGroup.ALLOW_DETACH);
+    mainMenu.setCapability(BranchGroup.ALLOW_DETACH);
     frame = new Frame("Horror Game");
     universe = new SimpleUniverse(canvas);
     canvas.setSize(800, 400);
@@ -76,42 +78,42 @@ public StartMenu(){
     tr.setScale(0.08);
     tr.setTranslation(new Vector3f(-0.25f, 0.3f, 0f));
     TransformGroup tg = new TransformGroup(tr);
-    group.addChild(tg);
+    mainMenu.addChild(tg);
     tg.addChild(titleLine1);
     //Title line 2
     Transform3D tr2 = new Transform3D();
     tr2.setScale(0.08);
     tr2.setTranslation(new Vector3f(-0.25f, 0.2f,0f));
     TransformGroup tg2 = new TransformGroup(tr2);
-    group.addChild(tg2);
+    mainMenu.addChild(tg2);
     tg2.addChild(titleLine2);
     //New Game
     Transform3D tr3 = new Transform3D();
     tr3.setScale(0.08);
     tr3.setTranslation(new Vector3f(-0.25f, 0f,0f));
     TransformGroup tg3 = new TransformGroup(tr3);
-    group.addChild(tg3);
+    mainMenu.addChild(tg3);
     tg3.addChild(newGame);
     //Continue Game
     Transform3D tr4 = new Transform3D();
     tr4.setScale(0.08);
     tr4.setTranslation(new Vector3f(-0.25f, -0.1f,0f));
     TransformGroup tg4 = new TransformGroup(tr4);
-    group.addChild(tg4);
+    mainMenu.addChild(tg4);
     tg4.addChild(continueGame);
     //settings
     Transform3D tr5 = new Transform3D();
     tr5.setScale(0.08);
     tr5.setTranslation(new Vector3f(-0.25f, -0.2f,0f));
     TransformGroup tg5 = new TransformGroup(tr5);
-    group.addChild(tg5);
+    mainMenu.addChild(tg5);
     tg5.addChild(settings);
     //Credits
     Transform3D tr6 = new Transform3D();
     tr6.setScale(0.08);
     tr6.setTranslation(new Vector3f(-0.25f, -0.3f,0f));
     TransformGroup tg6 = new TransformGroup(tr6);
-    group.addChild(tg6);
+    mainMenu.addChild(tg6);
     tg6.addChild(credits);
 
     //Background
@@ -121,27 +123,27 @@ public StartMenu(){
     Background background = new Background(1.0f, 1.0f, 1.0f);
     background.setColor(new Color3f(Color.BLACK));
     background.setApplicationBounds(bounds);
-    group.addChild(background);
+    mainMenu.addChild(background);
 
     // Lighting
     AmbientLight alight = new AmbientLight(true, new Color3f(getLightR(),getLightB(),getLightG()));
     alight.setInfluencingBounds(bounds);
-    group.addChild(alight); 
+    mainMenu.addChild(alight);
     
     PointLight light = new PointLight(new Color3f(Color.RED), new Point3f(1f,1f,1f),
     new Point3f(-0.5f,-1f,0f));
     light.setInfluencingBounds(bounds);
-    group.addChild(light);
+    mainMenu.addChild(light);
 
     universe.getViewingPlatform().setNominalViewingTransform();
-    universe.addBranchGraph(group);
+    universe.addBranchGraph(mainMenu);
     frame.addWindowListener(new WindowAdapter() {
        public void windowClosing(WindowEvent winEvent) {
           System.exit(0);
        }
     });
     frame.add(canvas);
-    pickCanvas = new PickCanvas(canvas, group);
+    pickCanvas = new PickCanvas(canvas, mainMenu);
     pickCanvas.setMode(PickCanvas.BOUNDS);
     canvas.addMouseListener((MouseListener) this);
     frame.pack();
@@ -177,17 +179,26 @@ public void mouseClicked(MouseEvent e){
            }
            if(s.getName().equals("Settings")){
                System.out.println("Settings Method Here");
-               group.detach();
+               mainMenu.detach();
+               universe.addBranchGraph(settingsMenu);
+               pickCanvas = new PickCanvas(universe.getCanvas(), settingsMenu);
+               pickCanvas.setMode(PickCanvas.BOUNDS);
 
-               universe.addBranchGraph(settings());
-
-
-               //pickCanvas.setBranchGroup().addChild(new SettingsMenu().group);
            }
            if(s.getName().equals("Credits")){
-               frame.dispose();
-               //new Credits();
                System.out.println("Credits Method Here");
+               mainMenu.detach();
+               universe.addBranchGraph(creditsMenu);
+               pickCanvas = new PickCanvas(universe.getCanvas(), creditsMenu);
+               pickCanvas.setMode(PickCanvas.BOUNDS);
+           }
+           if(s.getName().equals("Close OK")){
+               System.out.println("HI!");
+               settingsMenu.detach();
+               creditsMenu.detach();
+               universe.addBranchGraph(mainMenu);
+               pickCanvas = new PickCanvas(universe.getCanvas(), mainMenu);
+               pickCanvas.setMode(PickCanvas.BOUNDS);
            }
        } else{
           System.out.println("null");
@@ -239,8 +250,9 @@ public void mouseEntered(MouseEvent e) {
 public void mouseExited(MouseEvent e) {
 }
 
-public BranchGroup settings(){
-    BranchGroup bg = new BranchGroup();
+    public BranchGroup settings(){
+    settingsMenu = new BranchGroup();
+    settingsMenu.setCapability(BranchGroup.ALLOW_DETACH);
     GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
     Canvas3D canvas = new Canvas3D(config);
     SimpleUniverse universe = new SimpleUniverse(canvas);
@@ -297,42 +309,42 @@ public BranchGroup settings(){
     tr.setScale(0.1);
     tr.setTranslation(new Vector3f(-0.20f, 0.3f, 0f));
     TransformGroup tg = new TransformGroup(tr);
-    bg.addChild(tg);
+    settingsMenu.addChild(tg);
     tg.addChild(titleSettings);
     //Brightness
     Transform3D tr3 = new Transform3D();
     tr3.setScale(0.07);
     tr3.setTranslation(new Vector3f(-0.75f, 0.2f,0f));
     TransformGroup tg3 = new TransformGroup(tr3);
-    bg.addChild(tg3);
+    settingsMenu.addChild(tg3);
     tg3.addChild(brightness);
     //Brightness: Very Dark
     Transform3D trvd = new Transform3D();
     trvd.setScale(0.05);
     trvd.setTranslation(new Vector3f(-0.75f, 0.1f,0f));
     TransformGroup tgvd = new TransformGroup(trvd);
-    bg.addChild(tgvd);
+    settingsMenu.addChild(tgvd);
     tgvd.addChild(veryDark);
     //Brightness: Dark
     Transform3D trd = new Transform3D();
     trd.setScale(0.05);
     trd.setTranslation(new Vector3f(-0.35f, 0.1f,0f));
     TransformGroup tgd = new TransformGroup(trd);
-    bg.addChild(tgd);
+    settingsMenu.addChild(tgd);
     tgd.addChild(Dark);
     //Brightness: Bright
     Transform3D trb = new Transform3D();
     trb.setScale(0.05);
     trb.setTranslation(new Vector3f(-0.1f, 0.1f,0f));
     TransformGroup tgb = new TransformGroup(trb);
-    bg.addChild(tgb);
+    settingsMenu.addChild(tgb);
     tgb.addChild(Bright);
     //Brightness: Very Bright
     Transform3D trvb = new Transform3D();
     trvb.setScale(0.05);
     trvb.setTranslation(new Vector3f(0.2f, 0.1f,0f));
     TransformGroup tgvb = new TransformGroup(trvb);
-    bg.addChild(tgvb);
+    settingsMenu.addChild(tgvb);
     tgvb.addChild(veryBright);
 
 
@@ -341,14 +353,14 @@ public BranchGroup settings(){
     tr4.setScale(0.07);
     tr4.setTranslation(new Vector3f(-0.75f, -0f,0f));
     TransformGroup tg4 = new TransformGroup(tr4);
-    bg.addChild(tg4);
+    settingsMenu.addChild(tg4);
     tg4.addChild(volume);
     //Window Size
     Transform3D tr5 = new Transform3D();
     tr5.setScale(0.07);
     tr5.setTranslation(new Vector3f(-0.75f, -0.1f,0f));
     TransformGroup tg5 = new TransformGroup(tr5);
-    bg.addChild(tg5);
+    settingsMenu.addChild(tg5);
     tg5.addChild(windowSize);
 
     //OK
@@ -356,7 +368,7 @@ public BranchGroup settings(){
     tr6.setScale(0.07);
     tr6.setTranslation(new Vector3f(-0.10f, -0.3f, 0f));
     TransformGroup tg6 = new TransformGroup(tr6);
-    bg.addChild(tg6);
+    settingsMenu.addChild(tg6);
     tg6.addChild(closeText);
 
 
@@ -366,28 +378,127 @@ public BranchGroup settings(){
     Background background = new Background(1.0f, 1.0f, 1.0f);
     background.setColor(new Color3f(Color.BLACK));
     background.setApplicationBounds(bounds);
-    bg.addChild(background);
+    settingsMenu.addChild(background);
 
     // Lighting
     AmbientLight alight = new AmbientLight(true, new Color3f(getLightR(),getLightB(),getLightG()));
     alight.setInfluencingBounds(bounds);
-    bg.addChild(alight);
+    settingsMenu.addChild(alight);
     PointLight light = new PointLight(new Color3f(Color.RED), new Point3f(1f,1f,1f),
             new Point3f(-0.5f,-1f,0f));
     light.setInfluencingBounds(bounds);
-    bg.addChild(light);
+    settingsMenu.addChild(light);
 
     universe.getViewingPlatform().setNominalViewingTransform();
-    frame.addWindowListener(new WindowAdapter() {
-        public void windowClosing(WindowEvent winEvent) {
-            System.exit(0);
-
-        }
-    });
-    pickCanvas = new PickCanvas(canvas, bg);
-    pickCanvas.setMode(PickCanvas.BOUNDS);
-    canvas.addMouseListener((MouseListener) this);
-    return bg;
+    return settingsMenu;
 }
 
-} 
+    public BranchGroup credits(){
+        creditsMenu = new BranchGroup();
+        creditsMenu.setCapability(BranchGroup.ALLOW_DETACH);
+        Appearance ap = new Appearance();
+        ap.setMaterial(new Material());
+
+        //Fonts
+        Font3D scaryFont = new Font3D(new Font("Herculanum", Font.PLAIN, 1), new FontExtrusion());
+        Font3D normFont = new Font3D(new Font("TimesRoman", Font.PLAIN, 1), new FontExtrusion());
+
+        //Title
+        Text3D text = new Text3D(scaryFont, "Credits");
+        Shape3D titleCredits = new Shape3D(text, ap);
+
+
+        //Michael Perry
+        Text3D MichaelPText = new Text3D(scaryFont, "Story and Project Lead: Michael Perry");
+        Shape3D MichaelP = new Shape3D(MichaelPText, ap);
+
+
+        //Marc Newmann
+        Text3D MarcNtext = new Text3D(scaryFont, "Camera Development: Marc Newmann");
+        Shape3D MarcN = new Shape3D(MarcNtext, ap);
+
+
+        //Liam Curtis
+        Text3D LiamCText = new Text3D(scaryFont, "Graphics and Modelling: Liam Curtis");
+        Shape3D LiamC = new Shape3D(LiamCText, ap);
+
+        //Noah Eastwood
+        Text3D NoahEText = new Text3D(scaryFont, "Documentation and Lighting: Noah Eastwood");
+        Shape3D noahE = new Shape3D(NoahEText,ap);
+
+        //Transformations
+
+        //Close Button
+        Text3D closeOK = new Text3D(normFont,"OK");
+        Shape3D closeText = new Shape3D(closeOK,ap);
+        closeText.setName("Close OK");
+
+
+
+        //Credits
+        Transform3D tr = new Transform3D();
+        tr.setScale(0.1);
+        tr.setTranslation(new Vector3f(-0.20f, 0.3f, 0f));
+        TransformGroup tg = new TransformGroup(tr);
+        creditsMenu.addChild(tg);
+        tg.addChild(titleCredits);
+
+        //Michael Perry
+        Transform3D tr3 = new Transform3D();
+        tr3.setScale(0.07);
+        tr3.setTranslation(new Vector3f(-0.75f, 0.1f,0f));
+        TransformGroup tg3 = new TransformGroup(tr3);
+        creditsMenu.addChild(tg3);
+        tg3.addChild(MichaelP);
+
+        //Marc Transform
+        Transform3D tr2 = new Transform3D();
+        tr2.setScale(0.07);
+        tr2.setTranslation(new Vector3f(-0.75f, 0f,0f));
+        TransformGroup tg2 = new TransformGroup(tr2);
+        creditsMenu.addChild(tg2);
+        tg2.addChild(MarcN);
+
+        //Liam Transform
+        Transform3D tr5 = new Transform3D();
+        tr5.setScale(0.07);
+        tr5.setTranslation(new Vector3f(-0.75f, -0.1f,0f));
+        TransformGroup tg5 = new TransformGroup(tr5);
+        creditsMenu.addChild(tg5);
+        tg5.addChild(LiamC);
+
+        //Noah Transform
+        Transform3D tr6 = new Transform3D();
+        tr6.setScale(0.07);
+        tr6.setTranslation(new Vector3f(-0.75f, -0.2f,0f));
+        TransformGroup tg6 = new TransformGroup(tr6);
+        creditsMenu.addChild(tg6);
+        tg6.addChild(noahE);
+
+        //OK
+        Transform3D tr7 = new Transform3D();
+        tr7.setScale(0.07);
+        tr7.setTranslation(new Vector3f(-0.10f, -0.4f, 0f));
+        TransformGroup tg7 = new TransformGroup(tr7);
+        creditsMenu.addChild(tg7);
+        tg7.addChild(closeText);
+
+        //Background
+        BoundingSphere bounds = new BoundingSphere();
+        Background background = new Background(1.0f, 1.0f, 1.0f);
+        background.setColor(new Color3f(Color.BLACK));
+        background.setApplicationBounds(bounds);
+        creditsMenu.addChild(background);
+
+        // Lighting
+        AmbientLight alight = new AmbientLight(true, new Color3f(getLightR(),getLightB(),getLightG()));
+        alight.setInfluencingBounds(bounds);
+        creditsMenu.addChild(alight);
+        PointLight light = new PointLight(new Color3f(Color.RED), new Point3f(1f,1f,1f),
+                new Point3f(-0.5f,-1f,0f));
+        light.setInfluencingBounds(bounds);
+        creditsMenu.addChild(light);
+        return creditsMenu;
+    }
+
+}

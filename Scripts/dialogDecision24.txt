@@ -1,5 +1,7 @@
-Johnathan runs back into the warehouse once the monster has passed
+A small gust of wind rustles a few stray pieces of paper further into the lot.
+As the monster turns to investigate the debris, John takes the opportunity to move.
 
-Johnathan: “Gotta do something about that monster.”
+John whispers under his breath:
+John: "Gotta do something about that thing."
 
-CHOOSE: Hide from it, Trap it
+CHOOSE

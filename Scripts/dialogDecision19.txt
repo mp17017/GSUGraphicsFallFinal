@@ -1,10 +1,12 @@
-Johnathan searches the drawers and finds a key 
-Johnathan: “This’ll come in handy”
+*Key obtained*
 
-Johnathan leaves the room and see’s the monster at the window, it hasn’t noticed him.
+John: "This’ll come in handy."
 
-Johnathan: “what is that thing”
+John leaves the room and spots the monster nearby the window, it hasn’t noticed him yet.
 
-Johnathan reaches for his gun
+John mutters under his breath:
+John: "What is that?!"
+
+John reaches for his gun
 
 CHOOSE
