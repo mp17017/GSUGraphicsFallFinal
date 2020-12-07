@@ -64,6 +64,7 @@ public class GameWindow extends Applet {
     private final Point3d centerOrigin = new Point3d(eyeOrigin.getX() + centerOffset.getX(), eyeOrigin.getY() + centerOffset.getY(), eyeOrigin.getZ() + centerOffset.getZ());
     private Point3d[] viewPosition = {eyeOrigin, centerOrigin, centerOffset};
     private boolean dead = false;
+    private int textDelay = 0;
 
     public static void main(String[] args) {
         System.setProperty("sun.awt.noerasebackground", "true");
@@ -138,12 +139,12 @@ public class GameWindow extends Applet {
                 G2D.drawString("Inventory", 25, 20);
                 G2D.drawString("MENU", 30, this.getHeight() - 45);
                 G2D.setColor(Color.GREEN);
-                G2D.drawString("|" + console[5], 103, this.getHeight() - 122);
-                G2D.drawString("|" + console[4], 103, this.getHeight() - 102);
-                G2D.drawString("|" + console[3], 103, this.getHeight() - 82);
-                G2D.drawString("|" + console[2], 103, this.getHeight() - 62);
-                G2D.drawString("|" + console[1], 103, this.getHeight() - 42);
-                G2D.drawString("|" + console[0], 103, this.getHeight() - 12);
+                G2D.drawString(" " + console[5], 103, this.getHeight() - 122);
+                G2D.drawString(" " + console[4], 103, this.getHeight() - 102);
+                G2D.drawString(" " + console[3], 103, this.getHeight() - 82);
+                G2D.drawString(" " + console[2], 103, this.getHeight() - 62);
+                G2D.drawString(" " + console[1], 103, this.getHeight() - 42);
+                G2D.drawString(" " + console[0], 103, this.getHeight() - 12);
 
                 //Shows items if their triggers are true.
                 if (inventory[0]) {
@@ -737,10 +738,10 @@ public class GameWindow extends Applet {
                         case 78:
                             if (!noClipMode) {
                                 noClipMode = true;
-                                updateConsole("No clip mode activated", 2, tg);
+                                updateConsole("No clip mode activated", textDelay, tg);
                             } else {
                                 noClipMode = false;
-                                updateConsole("No clip mode deactivated", 2, tg);
+                                updateConsole("No clip mode deactivated", textDelay, tg);
                             }
                             break;
                         default:
@@ -873,17 +874,17 @@ public class GameWindow extends Applet {
 
         if (decisionIndex == 3 && !inventory[0]) {
             decisionsDisabled = true;
-            updateConsole("Enter numbers on the numpad or number keys, press backspace to delete a number, press Enter to submit code.", 1, tg);
+            updateConsole("Enter numbers on the numpad or number keys, press backspace to delete a number, press Enter to submit code.", textDelay, tg);
         }
         if (!decisionsDisabled || inventory[0]) {
             //Update console for current dialog
             ArrayList<String> currentDialog = dialogTree.get(decisionIndex);
             for (int i = 0; i < currentDialog.size(); i++) {
-                updateConsole(currentDialog.get(i), 2, tg);
+                updateConsole(currentDialog.get(i), textDelay, tg);
                 if ((currentDialog.get(i).trim().startsWith("CHOOSE"))
                         || (currentDialog.get(i).trim().startsWith("GAME OVER"))
                         || (currentDialog.get(i).trim().startsWith("VICTORY"))) {
-                    updateConsole("Press 'a' to: " + buttonText[0] + " | press 'd' to: " + buttonText[1] + " | press 's' to read the dialogue again.", 1, tg);
+                    updateConsole("Press 'a' to: " + buttonText[0] + " | press 'd' to: " + buttonText[1] + " | press 's' to read the dialogue again.", textDelay, tg);
                     /*                    updateConsole("OR", 1, tg);
                     updateConsole("Press 'd' to: " + buttonText[1], 1, tg);
                     updateConsole("OR", 1, tg);
@@ -922,8 +923,8 @@ public class GameWindow extends Applet {
         } else if (number.compareTo("-") != 0) {
             inputCode.append(number);
         }
-        updateConsole("John presses the '" + number + "' key", 1, tg);
-        updateConsole("Current input code: " + inputCode.toString(), 1, tg);
+        updateConsole("John presses the '" + number + "' key", textDelay, tg);
+        updateConsole("Current input code: " + inputCode.toString(), textDelay, tg);
         if (inputCode.length() > code.length()) {
             submitPuzzle(tg);
         }
@@ -934,7 +935,7 @@ public class GameWindow extends Applet {
         if (inputCode.length() == code.length()) {
             System.out.println("Code and input code are the same? " + (inputCode.toString().compareTo(code) == 0));
             if (inputCode.toString().compareTo(code) == 0) {
-                updateConsole("The electronic lock rings out an electronic beep, with an audible click as it unlocks.", 1, tg);
+                updateConsole("The electronic lock rings out an electronic beep, with an audible click as it unlocks.", textDelay, tg);
                 decisionsDisabled = false;
                 inventory[0] = true;
                 viewPosition[0] = new Point3d(0.600f, -1.000f, -1.200f);
@@ -942,12 +943,12 @@ public class GameWindow extends Applet {
                 viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
                 viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
                 viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
-                updateConsole("Leave it to some cronie to forget to change the default password", 2, tg);
+                updateConsole("Leave it to some cronie to forget to change the default password", textDelay, tg);
                 eventDecision(decisionIndex, tg);
 
             } else {
                 inputCode.delete(0, inputCode.length() - 1);
-                updateConsole("John: That code wasn't right...", 2, tg);
+                updateConsole("John: That code wasn't right...", textDelay, tg);
                 decisionsDisabled = false;
                 eventDecision(1, tg);
             }
