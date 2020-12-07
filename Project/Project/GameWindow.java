@@ -800,6 +800,7 @@ public class GameWindow extends Applet {
                 for (int i = 0; i < inventory.length; i++) {
                     inventory[i] = false;
                 }
+                if (inputCode.length() > 0) inputCode.delete(0, inputCode.length() - 1);
                 break;
             case 2:
                 lookDisabled = true;
@@ -928,7 +929,8 @@ public class GameWindow extends Applet {
 
             } else {
                 inputCode.delete(0, inputCode.length() - 1);
-                updateConsole("JB: That code wasn't right...", 5, tg);
+                updateConsole("JB: That code wasn't right...", 2, tg);
+                decisionsDisabled = false;
                 eventDecision(1, tg);
             }
         }
