@@ -874,7 +874,13 @@ public class GameWindow extends Applet {
 
         if (decisionIndex == 3 && !inventory[0]) {
             decisionsDisabled = true;
-            updateConsole("Enter numbers on the numpad or number keys, press backspace to delete a number, press Enter to submit code.", textDelay, tg);
+            updateConsole("Enter numbers on the numpad or number keys, press backspace to delete a number, press Enter to submit code.", 1, tg);
+        } else if(decisionIndex == 3 && inventory[0]) {
+            viewPosition[0] = new Point3d(0.600f, -1.000f, -1.200f);
+            viewPosition[2] = new Point3d(0.500f * cameraScale, -0.500f * cameraScale, -0.500f * cameraScale);
+            viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
+            viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
+            viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
         }
         if (!decisionsDisabled || inventory[0]) {
             //Update console for current dialog
@@ -923,8 +929,8 @@ public class GameWindow extends Applet {
         } else if (number.compareTo("-") != 0) {
             inputCode.append(number);
         }
-        updateConsole("John presses the '" + number + "' key", textDelay, tg);
-        updateConsole("Current input code: " + inputCode.toString(), textDelay, tg);
+        updateConsole("John presses the '" + number + "' key", 0, tg);
+        updateConsole("Current input code: " + inputCode.toString(), 0, tg);
         if (inputCode.length() > code.length()) {
             submitPuzzle(tg);
         }
@@ -938,14 +944,10 @@ public class GameWindow extends Applet {
                 updateConsole("The electronic lock rings out an electronic beep, with an audible click as it unlocks.", textDelay, tg);
                 decisionsDisabled = false;
                 inventory[0] = true;
-                viewPosition[0] = new Point3d(0.600f, -1.000f, -1.200f);
-                viewPosition[2] = new Point3d(0.500f * cameraScale, -0.500f * cameraScale, -0.500f * cameraScale);
-                viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
-                viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
-                viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
-                updateConsole("Leave it to some cronie to forget to change the default password", textDelay, tg);
+                updateConsole("*Crowbar obtained*", textDelay, tg);
+                updateConsole("John: \"Not what I was looking for, but this could come in handy.\"", textDelay, tg);
+                //updateConsole("John walks out into the parking lot.", textDelay, tg);
                 eventDecision(decisionIndex, tg);
-
             } else {
                 inputCode.delete(0, inputCode.length() - 1);
                 updateConsole("John: That code wasn't right...", textDelay, tg);
