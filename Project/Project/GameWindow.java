@@ -63,6 +63,7 @@ public class GameWindow extends Applet {
     private final Point3d centerOffset = new Point3d(0.000f * cameraScale, 0.000f * cameraScale, -1.000f * cameraScale); //Must be located in the lookAtLocations
     private final Point3d centerOrigin = new Point3d(eyeOrigin.getX() + centerOffset.getX(), eyeOrigin.getY() + centerOffset.getY(), eyeOrigin.getZ() + centerOffset.getZ());
     private Point3d[] viewPosition = {eyeOrigin, centerOrigin, centerOffset};
+    private boolean dead = false;
 
     public static void main(String[] args) {
         System.setProperty("sun.awt.noerasebackground", "true");
@@ -122,6 +123,7 @@ public class GameWindow extends Applet {
                 G2D.fill3DRect(101, this.getHeight() - 32, this.getWidth() - 102, 30, true);
                 G2D.fill3DRect(101, this.getHeight() - 138, this.getWidth() - 102, 104, true);
                 G2D.setColor(Color.BLACK);
+                G2D.setFont(new Font("TimesNewRoman", Font.PLAIN,12));
                 DecimalFormat df = new DecimalFormat("##.#####");
                 G2D.drawString("X: " + df.format(viewPosition[0].getX()), 5, this.getHeight() - 150);
                 G2D.drawString("Y: " + df.format(viewPosition[0].getY()), 5, this.getHeight() - 130);
@@ -154,9 +156,13 @@ public class GameWindow extends Applet {
                     G2D.drawImage(child, 18, 202, this);
                 }
                 this.getGraphics2D().flush(false);
-                
-                
-
+                if (dead){
+                    G2D.setColor(new Color(0f,0f,0f,0.8f));
+                    G2D.fill3DRect(100, 0,this.getWidth(), this.getHeight()-140, true);
+                    G2D.setFont(new Font("Herculanum", Font.PLAIN,48));
+                    G2D.setColor(Color.RED);
+                    G2D.drawString("YOU ARE DEAD", this.getWidth()/2 - 100, this.getHeight()/2 - 50);
+                }
             }
         };
         add(cv);
@@ -797,6 +803,7 @@ public class GameWindow extends Applet {
         switch (decisionIndex) {
             case 0:
                 lookDisabled = false;
+                dead = false;
                 for (int i = 0; i < inventory.length; i++) {
                     inventory[i] = false;
                 }
@@ -804,30 +811,41 @@ public class GameWindow extends Applet {
                 break;
             case 2:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 7:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 11:
                 inventory[2] = true;
                 break;
             case 13:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 16:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 17:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 19:
                 inventory[1] = true;
                 break;
+            case 21:
+                lookDisabled = true;
+                dead = true;
+                break;
             case 26:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 28:
                 lookDisabled = true;
+                dead = true;
                 break;
             case 29:
                 System.exit(0);
@@ -904,7 +922,7 @@ public class GameWindow extends Applet {
         } else if (number.compareTo("-") != 0) {
             inputCode.append(number);
         }
-        updateConsole("JB presses the '" + number + "' key", 1, tg);
+        updateConsole("John presses the '" + number + "' key", 1, tg);
         updateConsole("Current input code: " + inputCode.toString(), 1, tg);
         if (inputCode.length() > code.length()) {
             submitPuzzle(tg);
@@ -929,7 +947,7 @@ public class GameWindow extends Applet {
 
             } else {
                 inputCode.delete(0, inputCode.length() - 1);
-                updateConsole("JB: That code wasn't right...", 2, tg);
+                updateConsole("John: That code wasn't right...", 2, tg);
                 decisionsDisabled = false;
                 eventDecision(1, tg);
             }

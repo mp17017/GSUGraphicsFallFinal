@@ -48,3 +48,8 @@ Removed the following
 - Continue button
 - FullScreen button
 - Volume button
+
+12/6/2020 - 4
+Added death overlay
+fixed more spelling errors
+Fed the Kraken

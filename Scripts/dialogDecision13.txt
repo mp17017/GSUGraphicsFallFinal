@@ -3,7 +3,7 @@ It doesn't take long to find the creature, as it's still prowling for its next v
 
 John: "Take this!"
 
-John fires his revolver at the monster to no affect.
+John fires his revolver at the monster to no effect.
 The creature lets out a bone-chilling screech and turns to lunge at him.
 
 John Died
