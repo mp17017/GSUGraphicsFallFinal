@@ -40,3 +40,11 @@ Fixed main menu
 
 Updated Scripts with Marcs story adjustments
 Removed Settings.java
+
+12/6/2020 - 3
+Enabled brightness control
+updated item 3 to be a child
+Removed the following
+- Continue button
+- FullScreen button
+- Volume button

@@ -46,6 +46,7 @@ public class GameWindow extends Applet {
     private boolean lookDisabled = false;
     private boolean consoleInitialized = false;
     private int decisionIndex = 0;
+    private float opacity = (float) .6;
     private String[] console = {"", "", "", "", "", ""};
     private Map<Integer, ArrayList<Integer>> decisionTreeIndex = new HashMap<>();
     private Map<Integer, String> decisionTreeButtonTitles = new HashMap<>();
@@ -59,7 +60,7 @@ public class GameWindow extends Applet {
     //[0] current position, [1] eye position, [2] relative eye position (will always have a unit value to offset from [0])
     //[0] == camera position relative to world, [1] == position the camera is looking at relative to world, [2] == position camera is looking at relative to current position
     private final Point3d eyeOrigin = new Point3d(0.525f, -1.050f, 2.425f);
-    private final Point3d centerOffset = new Point3d(0.000f*cameraScale, 0.000f*cameraScale, -1.000f*cameraScale); //Must be located in the lookAtLocations
+    private final Point3d centerOffset = new Point3d(0.000f * cameraScale, 0.000f * cameraScale, -1.000f * cameraScale); //Must be located in the lookAtLocations
     private final Point3d centerOrigin = new Point3d(eyeOrigin.getX() + centerOffset.getX(), eyeOrigin.getY() + centerOffset.getY(), eyeOrigin.getZ() + centerOffset.getZ());
     private Point3d[] viewPosition = {eyeOrigin, centerOrigin, centerOffset};
 
@@ -67,9 +68,13 @@ public class GameWindow extends Applet {
         System.setProperty("sun.awt.noerasebackground", "true");
         new MainFrame(new GameWindow(), 800, 600);
     }
+    
+    public GameWindow(){
+        this((float)0);
+    }
 
     //@Override
-    public GameWindow() {
+    public GameWindow(float opacity) {
 
         //initialize universe
         this.setLayout(new GridLayout(1, 2));
@@ -85,7 +90,7 @@ public class GameWindow extends Applet {
             keyin = ImageIO.read(new File("Objects/item2.png"));
             childin = ImageIO.read(new File("Objects/item3.png"));
         } catch (IOException e) {
-            System.out.println("Image could not be opened for inventory: " +e);
+            System.out.println("Image could not be opened for inventory: " + e);
         }
         //Preperation to pass to class, not sure why this is necesarry, but my IDE wouldn't work without it.
         BufferedImage finalWepin = wepin;
@@ -108,9 +113,12 @@ public class GameWindow extends Applet {
                 //Outer text box
                 G2D.fill3DRect(100, this.getHeight() - 140, this.getWidth() - 100, 140, true);
 
-                G2D.setColor(Color.BLACK);
+                //lighting overlay
+                G2D.setColor(new Color(0f,0f,0f,StartMenu.opacity));
+                G2D.fill3DRect(100, 0,this.getWidth(), this.getHeight()-140, true);
 
                 //Inner Box's for text
+                G2D.setColor(Color.BLACK);
                 G2D.fill3DRect(101, this.getHeight() - 32, this.getWidth() - 102, 30, true);
                 G2D.fill3DRect(101, this.getHeight() - 138, this.getWidth() - 102, 104, true);
                 G2D.setColor(Color.BLACK);
@@ -128,18 +136,27 @@ public class GameWindow extends Applet {
                 G2D.drawString("Inventory", 25, 20);
                 G2D.drawString("MENU", 30, this.getHeight() - 45);
                 G2D.setColor(Color.GREEN);
-                G2D.drawString("|"+console[5], 103, this.getHeight() - 122);
-                G2D.drawString("|"+console[4], 103, this.getHeight() - 102);
-                G2D.drawString("|"+console[3], 103, this.getHeight() - 82);
-                G2D.drawString("|"+console[2], 103, this.getHeight() - 62);
-                G2D.drawString("|"+console[1], 103, this.getHeight() - 42);
-                G2D.drawString("|"+console[0], 103, this.getHeight() - 12);
+                G2D.drawString("|" + console[5], 103, this.getHeight() - 122);
+                G2D.drawString("|" + console[4], 103, this.getHeight() - 102);
+                G2D.drawString("|" + console[3], 103, this.getHeight() - 82);
+                G2D.drawString("|" + console[2], 103, this.getHeight() - 62);
+                G2D.drawString("|" + console[1], 103, this.getHeight() - 42);
+                G2D.drawString("|" + console[0], 103, this.getHeight() - 12);
 
                 //Shows items if their triggers are true.
-                if (inventory[0]) G2D.drawImage(wep, 18, 38, this);
-                if (inventory[1]) G2D.drawImage(key, 18, 120, this);
-                if (inventory[2]) G2D.drawImage(child, 18, 202, this);
+                if (inventory[0]) {
+                    G2D.drawImage(wep, 18, 38, this);
+                }
+                if (inventory[1]) {
+                    G2D.drawImage(key, 18, 120, this);
+                }
+                if (inventory[2]) {
+                    G2D.drawImage(child, 18, 202, this);
+                }
                 this.getGraphics2D().flush(false);
+                
+                
+
             }
         };
         add(cv);
@@ -463,119 +480,119 @@ public class GameWindow extends Applet {
             temp.add(new Point3d());
             //Node 0:
             temp.set(0, new Point3d(0.525f, -1.050f, 2.425f));
-            temp.set(1, new Point3d(0.000f*cameraScale, 0.000f*cameraScale, -1.000f*cameraScale));
+            temp.set(1, new Point3d(0.000f * cameraScale, 0.000f * cameraScale, -1.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 1:
             temp.set(0, new Point3d(-0.050f, -1.050f, 1.100f));
-            temp.set(1, new Point3d(-0.500f*cameraScale, 0.000f*cameraScale, -0.500f*cameraScale));
+            temp.set(1, new Point3d(-0.500f * cameraScale, 0.000f * cameraScale, -0.500f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 2:
             temp.set(0, new Point3d(0.050f, -1.100f, 1.100f));
-            temp.set(1, new Point3d(-0.500f*cameraScale, 1.000f*cameraScale, -0.500f*cameraScale));
+            temp.set(1, new Point3d(-0.500f * cameraScale, 1.000f * cameraScale, -0.500f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 3:
             temp.set(0, new Point3d(-0.075f, -1.050f, 1.025f));
-            temp.set(1, new Point3d(-0.500f*cameraScale, -0.500f*cameraScale, -0.500f*cameraScale));
+            temp.set(1, new Point3d(-0.500f * cameraScale, -0.500f * cameraScale, -0.500f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 4:
             temp.set(0, new Point3d(0.600f, -1.000f, -1.200f));
-            temp.set(1, new Point3d(0.500f*cameraScale, -0.500f*cameraScale, -0.500f*cameraScale));
+            temp.set(1, new Point3d(0.500f * cameraScale, -0.500f * cameraScale, -0.500f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 5:
             temp.set(0, new Point3d(0.600f, -1.000f, -1.200f));
-            temp.set(1, new Point3d(0.500f*cameraScale, 0.000f*cameraScale, -0.500f*cameraScale));
+            temp.set(1, new Point3d(0.500f * cameraScale, 0.000f * cameraScale, -0.500f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 6:
             temp.set(0, new Point3d(0.400f, -1.00f, 0.250f));
-            temp.set(1, new Point3d(-0.250f*cameraScale, 0.000f*cameraScale, -0.750f*cameraScale));
+            temp.set(1, new Point3d(-0.250f * cameraScale, 0.000f * cameraScale, -0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 7:
             temp.set(0, new Point3d(-0.425, -1.050f, 0.225f));
-            temp.set(1, new Point3d(0.750f*cameraScale, 1.000f*cameraScale, 0.250f*cameraScale));
+            temp.set(1, new Point3d(0.750f * cameraScale, 1.000f * cameraScale, 0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 8:
             temp.set(0, new Point3d(-0.425f, -1.050f, -0.025f));
-            temp.set(1, new Point3d(1.000f*cameraScale, 0.000f*cameraScale, 0.000f*cameraScale));
+            temp.set(1, new Point3d(1.000f * cameraScale, 0.000f * cameraScale, 0.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 9:
             temp.set(0, new Point3d(-0.125f, -1.050f, 0.275f));
-            temp.set(1, new Point3d(-1.000f*cameraScale, 0.000f*cameraScale, 0.000f*cameraScale));
+            temp.set(1, new Point3d(-1.000f * cameraScale, 0.000f * cameraScale, 0.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 10:
             temp.set(0, new Point3d(-0.125f, -1.000f, 0.275f));
-            temp.set(1, new Point3d(1.000f*cameraScale, 0.000f*cameraScale, 0.000f*cameraScale));
+            temp.set(1, new Point3d(1.000f * cameraScale, 0.000f * cameraScale, 0.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 11:
             temp.set(0, new Point3d(-0.375f, -1.000f, 0.175f));
-            temp.set(1, new Point3d(-0.750f*cameraScale, -0.500f*cameraScale, -0.250f*cameraScale));
+            temp.set(1, new Point3d(-0.750f * cameraScale, -0.500f * cameraScale, -0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 12:
             temp.set(0, new Point3d(-0.400f, -1.000f, 0.900f));
-            temp.set(1, new Point3d(-1.000f*cameraScale, 0.000f*cameraScale, 0.000f*cameraScale));
+            temp.set(1, new Point3d(-1.000f * cameraScale, 0.000f * cameraScale, 0.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 13:
             temp.set(0, new Point3d(0.625f, -1.100f, 0.825f));
-            temp.set(1, new Point3d(0.250f*cameraScale, 1.000f*cameraScale, -0.750f*cameraScale));
+            temp.set(1, new Point3d(0.250f * cameraScale, 1.000f * cameraScale, -0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 14:
             temp.set(0, new Point3d(-1.250f, -1.050f, 0.275f));
-            temp.set(1, new Point3d(0.750f*cameraScale, 0.000f*cameraScale, 0.250f*cameraScale));
+            temp.set(1, new Point3d(0.750f * cameraScale, 0.000f * cameraScale, 0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 15:
             temp.set(0, new Point3d(0.400f, -1.050f, 0.750f));
-            temp.set(1, new Point3d(-0.750f*cameraScale, 0.000f*cameraScale, +0.250f*cameraScale));
+            temp.set(1, new Point3d(-0.750f * cameraScale, 0.000f * cameraScale, +0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 16:
             temp.set(0, new Point3d(0.675f, -1.100f, -0.725f));
-            temp.set(1, new Point3d(0.250f*cameraScale, 0.500f*cameraScale, 0.750f*cameraScale));
+            temp.set(1, new Point3d(0.250f * cameraScale, 0.500f * cameraScale, 0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 17:
             temp.set(0, new Point3d(-0.125f, -1.100f, 0.175f));
-            temp.set(1, new Point3d(0.250f*cameraScale, 1.000f*cameraScale, -0.750f*cameraScale));
+            temp.set(1, new Point3d(0.250f * cameraScale, 1.000f * cameraScale, -0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 18:
             temp.set(0, new Point3d(1.400f, -1.000f, 1.800f));
-            temp.set(1, new Point3d(1.000f*cameraScale, 0.000f*cameraScale, 0.000f*cameraScale));
+            temp.set(1, new Point3d(1.000f * cameraScale, 0.000f * cameraScale, 0.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 19:
             temp.set(0, new Point3d(1.325f, -1.000f, 1.925f));
-            temp.set(1, new Point3d(-0.500f*cameraScale, -0.500f*cameraScale, -0.5000f*cameraScale));
+            temp.set(1, new Point3d(-0.500f * cameraScale, -0.500f * cameraScale, -0.5000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 20:
             temp.set(0, new Point3d(1.125f, -1.000f, 1.825f));
-            temp.set(1, new Point3d(0.750f*cameraScale, 0.000f*cameraScale, -0.250f*cameraScale));
+            temp.set(1, new Point3d(0.750f * cameraScale, 0.000f * cameraScale, -0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 21:
             temp.set(0, new Point3d(1.150f, -1.100f, 1.750f));
-            temp.set(1, new Point3d(0.750f*cameraScale, 1.000f*cameraScale, 0.250f*cameraScale));
+            temp.set(1, new Point3d(0.750f * cameraScale, 1.000f * cameraScale, 0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 22:
             temp.set(0, new Point3d(1.200f, -1.100f, 1.850f));
-            temp.set(1, new Point3d(0.750f*cameraScale, 0.000f*cameraScale, -0.250f*cameraScale));
+            temp.set(1, new Point3d(0.750f * cameraScale, 0.000f * cameraScale, -0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 23:
             temp.set(0, new Point3d(0.950f, -1.00f, -0.600f));
-            temp.set(1, new Point3d(0.250f*cameraScale, 0.000f*cameraScale, -0.750f*cameraScale));
+            temp.set(1, new Point3d(0.250f * cameraScale, 0.000f * cameraScale, -0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 24:
             temp.set(0, new Point3d(1.175f, -1.050f, -0.725f));
-            temp.set(1, new Point3d(-0.250f*cameraScale, 0.000f*cameraScale, 0.750f*cameraScale));
+            temp.set(1, new Point3d(-0.250f * cameraScale, 0.000f * cameraScale, 0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 25:
             temp.set(0, new Point3d(0.400f, -1.050f, 0.750f));
-            temp.set(1, new Point3d(-0.750f*cameraScale, 0.000f*cameraScale, 0.250f*cameraScale));
+            temp.set(1, new Point3d(-0.750f * cameraScale, 0.000f * cameraScale, 0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 26:
             temp.set(0, new Point3d(0.300f, -1.100f, 0.850f));
-            temp.set(1, new Point3d(-0.250f*cameraScale, 1.000f*cameraScale, -0.750f*cameraScale));
+            temp.set(1, new Point3d(-0.250f * cameraScale, 1.000f * cameraScale, -0.750f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 27:
             temp.set(0, new Point3d(1.000f, -1.100f, -0.600f));
-            temp.set(1, new Point3d(-0.750f*cameraScale, 0.500f*cameraScale, 0.250f*cameraScale));
+            temp.set(1, new Point3d(-0.750f * cameraScale, 0.500f * cameraScale, 0.250f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
             //Node 28:
             temp.set(0, new Point3d(0.550f, -1.050f, 2.400f));
-            temp.set(1, new Point3d(0.000f*cameraScale, 0.500f*cameraScale, 1.000f*cameraScale));
+            temp.set(1, new Point3d(0.000f * cameraScale, 0.500f * cameraScale, 1.000f * cameraScale));
             movementTree.add((ArrayList<Point3d>) temp.clone());
         }
 
@@ -633,7 +650,9 @@ public class GameWindow extends Applet {
             if (temp != -1) {
                 int lookDirection = -1;
                 int moveDirection = -1;
-                if (temp == 27) System.exit(0);
+                if (temp == 27) {
+                    System.exit(0);
+                }
                 if (temp != 0) {
                     System.out.println("key: " + temp);
                 }
@@ -842,11 +861,11 @@ public class GameWindow extends Applet {
             ArrayList<String> currentDialog = dialogTree.get(decisionIndex);
             for (int i = 0; i < currentDialog.size(); i++) {
                 updateConsole(currentDialog.get(i), 2, tg);
-                if ((currentDialog.get(i).trim().startsWith("CHOOSE")) ||
-                        (currentDialog.get(i).trim().startsWith("GAME OVER")) ||
-                        (currentDialog.get(i).trim().startsWith("VICTORY"))) {
+                if ((currentDialog.get(i).trim().startsWith("CHOOSE"))
+                        || (currentDialog.get(i).trim().startsWith("GAME OVER"))
+                        || (currentDialog.get(i).trim().startsWith("VICTORY"))) {
                     updateConsole("Press 'a' to: " + buttonText[0] + " | press 'd' to: " + buttonText[1] + " | press 's' to read the dialogue again.", 1, tg);
-/*                    updateConsole("OR", 1, tg);
+                    /*                    updateConsole("OR", 1, tg);
                     updateConsole("Press 'd' to: " + buttonText[1], 1, tg);
                     updateConsole("OR", 1, tg);
                     updateConsole("Press 's' to: Read dialogue again.", 1, tg);*/
@@ -885,19 +904,22 @@ public class GameWindow extends Applet {
             inputCode.append(number);
         }
         updateConsole("JB presses the '" + number + "' key", 1, tg);
-        updateConsole("Current input code: " +inputCode.toString(), 1, tg);
-        if (inputCode.length() > code.length()) submitPuzzle(tg);
+        updateConsole("Current input code: " + inputCode.toString(), 1, tg);
+        if (inputCode.length() > code.length()) {
+            submitPuzzle(tg);
+        }
     }
+
     private void submitPuzzle(TransformGroup tg) {
-        System.out.println("Code lengths are equal? " +(inputCode.length() == code.length()));
+        System.out.println("Code lengths are equal? " + (inputCode.length() == code.length()));
         if (inputCode.length() == code.length()) {
-            System.out.println("Code and input code are the same? " +(inputCode.toString().compareTo(code) == 0));
+            System.out.println("Code and input code are the same? " + (inputCode.toString().compareTo(code) == 0));
             if (inputCode.toString().compareTo(code) == 0) {
                 updateConsole("The electronic lock rings out an electronic beep, with an audible click as it unlocks.", 1, tg);
                 decisionsDisabled = false;
                 inventory[0] = true;
                 viewPosition[0] = new Point3d(0.600f, -1.000f, -1.200f);
-                viewPosition[2] = new Point3d(0.500f*cameraScale, -0.500f*cameraScale, -0.500f*cameraScale);
+                viewPosition[2] = new Point3d(0.500f * cameraScale, -0.500f * cameraScale, -0.500f * cameraScale);
                 viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
                 viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
                 viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
@@ -942,13 +964,8 @@ public class GameWindow extends Applet {
 
     }
 
-    private Light createLight() {
-        DirectionalLight light = new DirectionalLight(true, new Color3f(0.2f, 0.2f, 0.2f),
-                new Vector3f(-0.3f, 0.2f, -1.0f));
-
-        light.setInfluencingBounds(new BoundingSphere(new Point3d(), 10000.0));
-
-        return light;
+    public  void setOpacity(float opacity){
+        this.opacity = opacity;
     }
 
     public static double clamp(double input, double min, double max) {
