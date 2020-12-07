@@ -69,3 +69,7 @@ Removed monolith
 Fed the Kraken
 Removed monolith
 Fed the Kraken
+
+12/7/2020 -2
+Fixed respawn
+Fed the Kraken

@@ -858,17 +858,24 @@ public class GameWindow extends Applet {
             buttonText[0] = decisionTreeButtonTitles.get(nextChoices.get(0));
             buttonText[1] = decisionTreeButtonTitles.get(nextChoices.get(1));
         }
-        //Move to new location
         ArrayList<Point3d> currentPosition = movementTree.get(decisionIndex);
         Transform3D lookAt = new Transform3D();
-        //[0] current position, [1] eye position, [2] relative eye position (will always have a unit value to offset from [0])
-        viewPosition[0] = currentPosition.get(0);
-        viewPosition[2] = currentPosition.get(1);
-        viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
-        viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
-        viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
+        if (decisionIndex == 0) {
+            viewPosition[0] = new Point3d(0.525f, -1.050f, 2.425f);
+            viewPosition[2] = new Point3d(0.000f * cameraScale, 0.000f * cameraScale, -1.000f * cameraScale); //Must be located in the lookAtLocations
+            viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
+            viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
+            viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
+        } else {
+            //Move to new location
+            viewPosition[0] = currentPosition.get(0);
+            viewPosition[2] = currentPosition.get(1);
+            viewPosition[1].setX(viewPosition[0].getX() + viewPosition[2].getX());
+            viewPosition[1].setY(viewPosition[0].getY() + viewPosition[2].getY());
+            viewPosition[1].setZ(viewPosition[0].getZ() + viewPosition[2].getZ());
+        }
 
-        lookAt.lookAt(currentPosition.get(0), currentPosition.get(1), new Vector3d(0.0f, 1.0f, 0.0f));
+        lookAt.lookAt(viewPosition[0], viewPosition[1], new Vector3d(0.0f, 1.0f, 0.0f));
         lookAt.invert();
         tg.setTransform(lookAt);
 
